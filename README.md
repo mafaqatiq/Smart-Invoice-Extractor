@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 # Smart-Invoice-Extraction-System
-=======
+
 # Django Invoice Data Extraction Web App
 
 This Django web application allows users to upload invoices, which are then processed using a YOLO model and Tesseract OCR. The app extracts annotated images and text data from the invoices, allowing users to search for specific information (e.g., by `supplier_ntn_value`) and view all extracted data stored in the database.
@@ -24,8 +24,6 @@ This Django web application allows users to upload invoices, which are then proc
 # Steps
 ## Configure Tesseract OCR
 Install Tesseract OCR on your system if it's not already installed:
-
-Windows: Download and install from here.
 Make sure Tesseract is added to your system’s PATH variable.
 
 
