@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extracted Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #0f172a;
+            --surface: #1e293b;
+            --border: #2e3b52;
+            --text: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --primary: #6366f1;
+            --surface-hover: #2e3b52;
+            --button-bg: #6366f1;
+            --button-bg-hover: #4f46e5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            padding-top: 4rem;
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f8fafc;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin-right: 15px;
+            border-radius: 0.5rem;
+            background: var(--button-bg);
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background: var(--button-bg-hover);
+            transform: translateY(-2px);
+        }
+
+        .home-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .search-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--surface);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        form input, form button {
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+            color: var(--text);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        form input:focus, form button:hover {
+            background-color: var(--surface-hover);
+            transform: translateY(-2px);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: var(--border);
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .results-entry {
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            background-color: var(--surface);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .results-entry:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .images-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .image-preview h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .image-preview img:hover {
+            transform: scale(1.02);
+        }
+
+        .table-container {
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        .table-container h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border);
+            padding: 1rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--surface-hover);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            background-color: var(--surface-hover);
+            color: var(--text);
+        }
+
+        th:first-child,
+        td:first-child {
+            border-left: 1px solid var(--border);
+        }
+
+        th:first-child {
+            border-top-left-radius: 0.75rem;
+        }
+
+        th:last-child {
+            border-top-right-radius: 0.75rem;
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 0.75rem;
+        }
+
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 0.75rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            padding: 4rem;
+            background: var(--surface);
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .images-container {
+                grid-template-columns: 1fr;
+            }
+
+            .table-container {
+                margin-top: 1rem;
+            }
+
+            .search-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <a href="/" class="home-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Home
+        </a>
+        <a href="{% url 'show_data' %}" class="home-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v12a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Dummy Data
+        </a>
+        <a href="{% url 'show_extracted_data' %}" class="home-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l7-7 7 7m-7 7v-6m0 0l-7 7m7-7l7-7" />
+            </svg>
+            Extracted Data
+        </a>
+        <a href="{% url 'search_ntn' %}" class="home-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l7-7 7 7m-7 7v-6m0 0l-7 7m7-7l7-7" />
+            </svg>
+            Search Data
+        </a>
+    </nav>
+    <div class="search-container">
+        <h2>Search by Supplier NTN Number</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+
+        {% if search_results %}
+        <h3 style="margin-top: 30px;">Search Results</h3>
+        <div class="results-container">
+            {% for image in search_results %}
+            <div class="results-entry">
+                <h2 class="entry-title">Entry {{ forloop.counter }}</h2>
+                <div class="images-container">
+                    <div class="image-preview">
+                        <h2>Original Image</h2>
+                        <img src="{{ image.original_image.url }}" alt="Original Image">
+                    </div>
+                    <div class="image-preview">
+                        <h2>Annotated Image</h2>
+                        <img src="{{ image.annotated_image.url }}" alt="Annotated Image">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h2>Extracted Data</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for annotation in image.annotations %}
+                            <tr>
+                                <td>{{ annotation.label }}</td>
+                                <td>{{ annotation.text }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>
